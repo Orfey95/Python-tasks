@@ -3,7 +3,7 @@ Designations:
 * A - any capital letter of the Latin alphabet;
 * a - any small letter of the Latin alphabet;
 * d - any digit;
-* S - any special symbol.
+* S - any special symbol.<br>
 Password Pattern:
 {N}a{N}A{N}d{N}S
 ```
