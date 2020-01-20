@@ -16,6 +16,9 @@ def check_ip4():
         return "Subnet mask cannot be more than 32"
     # split ip address into octets
     split_ip_address = re.split(r'\.', ip_address)
+    for x in range(4):
+        if int(split_ip_address[x]) > 255:
+            return "IP address octet cannot be more than 255"
     # variables declaration
     binary_ip_address = ''
     binary_subnet_mask = ''
