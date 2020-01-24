@@ -70,13 +70,13 @@ def check_ip4():
         decimal_host_max_ip_address += str(int(split_binary_host_max_ip_address[x], 2)) + '.'
     decimal_host_max_ip_address = decimal_host_max_ip_address[:-1]
     ################
-    print(f"IP address   | (10) {ip_address}   | (2) {binary_ip_address}")
-    print(f"Subnet mask  | (10) {decimal_subnet_mask} | (2) {binary_subnet_mask} | (bit) {subnet_mask}")
-    print(f"Network size | {network_size}")
-    print(f"Broadcast    | (10) {decimal_broadcast_ip_address} | (2) {binary_broadcast_ip_address}")
-    print(f"Network      | (10) {decimal_network_ip_address}   | (2) {binary_network_ip_address}")
-    print(f"Host minimal | (10) {decimal_host_min_ip_address}  | (2) {binary_host_min_ip_address}")
-    print(f"Host maximal | (10) {decimal_host_max_ip_address}  | (2) {binary_host_max_ip_address}")
+    print("%-20s | (10) %-15s | (2) %s" % ('IP address', ip_address, binary_ip_address))
+    print("%-20s | (10) %-15s | (2) %-35s | (bit) %s" % ('Subnet mask', decimal_subnet_mask, binary_subnet_mask, subnet_mask))
+    print("%-20s | %s" % ('Network_size', network_size))
+    print("%-20s | (10) %-15s | (2) %s" % ('Broadcast', decimal_broadcast_ip_address, binary_broadcast_ip_address))
+    print("%-20s | (10) %-15s | (2) %s" % ('Network', decimal_network_ip_address, binary_network_ip_address))
+    print("%-20s | (10) %-15s | (2) %s" % ('Host minimal', decimal_host_min_ip_address, binary_host_min_ip_address))
+    print("%-20s | (10) %-15s | (2) %s" % ('Host maximal', decimal_host_max_ip_address, binary_host_max_ip_address))
     ################
     # host input processing
     print("Input host number:")
