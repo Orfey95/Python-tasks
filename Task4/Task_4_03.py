@@ -8,7 +8,7 @@ def count_user_agent(N):
     second_regex_user_agent_list = []
     line = log.readlines()
     #  Get "..." from log
-    for x in range(10000):
+    for x in range(len(line)):
         first_regex_user_agent_list.append(re.findall(r'"(.*?)"', line[x]))
     #  Convert list of "..." to string
     str_user_agent_list = ''.join([str(elem) for elem in first_regex_user_agent_list])
