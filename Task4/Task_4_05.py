@@ -17,7 +17,6 @@ def count_max_and_min_link(N):
     second_regex_link_list = second_regex_link_list[0]
     #  Get ... from list of "..."
     second_regex_link_list = [element[1:-1] for element in second_regex_link_list]
-
     max_len_dict = {}
     min_len_dict = {}
     for x in range(len(second_regex_link_list)):
