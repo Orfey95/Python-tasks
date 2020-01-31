@@ -8,14 +8,18 @@ def count_user_agent(N):
     second_regex_user_agent_list = []
     line = log.readlines()
     #  Get "..." from log
-    for x in range(len(line)):
+    for x in range(10000):
         first_regex_user_agent_list.append(re.findall(r'"(.*?)"', line[x]))
     #  Convert list of "..." to string
     str_user_agent_list = ''.join([str(elem) for elem in first_regex_user_agent_list])
-    #  Get .../d.d from list of "..."
+    #  Get _.../d.d_ from list of "..."
     second_regex_user_agent_list.append(re.findall(r' [a-zA-z]+/[0-9\.]+ ', str_user_agent_list))
     second_regex_user_agent_list = second_regex_user_agent_list[0]
+    #  Get .../d.d from list of _.../d.d_
     second_regex_user_agent_list = [element[1:-1] for element in second_regex_user_agent_list]
+    #  Remove inappropriate items from .../d.d list
+    regex = re.compile(r'(.*?)Version(.*?)')
+    second_regex_user_agent_list = [i for i in second_regex_user_agent_list if not regex.match(i)]
     temp_dict = {}
     for x in range(len(second_regex_user_agent_list)):
         #  Reverse sort of user agents by their count
