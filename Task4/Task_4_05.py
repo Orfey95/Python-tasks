@@ -8,7 +8,7 @@ def count_max_and_min_link(N):
     second_regex_link_list = []
     line = log.readlines()
     #  Get "GET ... HTTP/1.1" from log
-    for x in range(100):
+    for x in range(len(line)):
         first_regex_link_list.append(re.findall(r'"GET (.*?) HTTP/1.1"', line[x]))
     #  Convert list of "GET ... HTTP/1.1" to string
     str_link_list = ''.join([str(elem) for elem in first_regex_link_list])
