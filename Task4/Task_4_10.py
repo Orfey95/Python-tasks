@@ -8,31 +8,23 @@ def max_request_frequency(N):
     period_count = []
     for x in range(1, N+1, 1):
         period_count.append(x)
-    first_regex_time_list = []
-    second_regex_time_list = []
+    regex_time_list = []
     seconds_difference_list = []
     line = log.readlines()
-    #  Get [...] from log
+    #  Get time from log
     for x in range(len(line)):
-        first_regex_time_list.append(re.findall(r'\[[^"]+\]', line[x]))
-    #  Convert list of [...] to string
-    str_time_list = ''.join([str(elem) for elem in first_regex_time_list])
-    #  Get :d:d:d from list of [...]
-    second_regex_time_list.append(re.findall(r'\:\d{2}\:\d{2}\:\d{2}', str_time_list))
-    second_regex_time_list = second_regex_time_list[0]
-    #  Get d:d:d from list of :d:d:d
-    second_regex_time_list = [element[1:] for element in second_regex_time_list]
-    second_regex_time_list.sort()
-    second_regex_time_list.reverse()
+        regex_time_list.append(str((re.findall(r'\[.+?\:(\d{2}\:\d{2}\:\d{2}).+?\]', line[x])))[2:-2])
+    regex_time_list.sort()
+    regex_time_list.reverse()
     #  Get seconds difference
-    for x in range(len(second_regex_time_list) - 1):
-        difference = (datetime.strptime(second_regex_time_list[x], '%H:%M:%S') - datetime.strptime(
-            second_regex_time_list[x + 1], '%H:%M:%S')).total_seconds()
+    for x in range(len(regex_time_list) - 1):
+        difference = (datetime.strptime(regex_time_list[x], '%H:%M:%S') - datetime.strptime(
+            regex_time_list[x + 1], '%H:%M:%S')).total_seconds()
         seconds_difference_list.append(difference)
     #  Adding the last element to seconds_difference_list that is lost when calculating the difference
     seconds_difference_list.append(0.0)
     #  Get total duration of requests
-    second_regex_time_list.reverse()
+    regex_time_list.reverse()
     seconds_difference_list.reverse()
     for number_of_period in range(len(period_count)):
         dT = period_count[number_of_period] * 60
@@ -52,8 +44,8 @@ def max_request_frequency(N):
                 #  Check max_count_request
                 if current_count > max_count_request:
                     max_count_request = current_count
-                    max_first_request = second_regex_time_list[prev_count - 1]
-                    max_last_request = second_regex_time_list[prev_count - 1 + current_count - 1]
+                    max_first_request = regex_time_list[prev_count - 1]
+                    max_last_request = regex_time_list[prev_count - 1 + current_count - 1]
                     prev_count += current_count
                     sum = 0
                     current_count = 0
