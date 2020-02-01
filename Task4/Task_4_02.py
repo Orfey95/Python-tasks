@@ -4,20 +4,12 @@ from datetime import datetime
 
 def request_frequency(dT):
     log = open('C:\\Users\\Aleksandr\\Desktop\\EPAM\\Python\\access_log\\access_log')
-    first_regex_time_list = []
     second_regex_time_list = []
     seconds_difference_list = []
     line = log.readlines()
-    #  Get [...] from log
+    #  Get time from log
     for x in range(len(line)):
-        first_regex_time_list.append(re.findall(r'\[[^"]+\]', line[x]))
-    #  Convert list of [...] to string
-    str_time_list = ''.join([str(elem) for elem in first_regex_time_list])
-    #  Get :d:d:d from list of [...]
-    second_regex_time_list.append(re.findall(r'\:\d{2}\:\d{2}\:\d{2}', str_time_list))
-    second_regex_time_list = second_regex_time_list[0]
-    #  Get d:d:d from list of :d:d:d
-    second_regex_time_list = [element[1:] for element in second_regex_time_list]
+        second_regex_time_list.append(str((re.findall(r'\[.+?\:(\d{2}\:\d{2}\:\d{2}).+?\]', line[x])))[2:-2])
     second_regex_time_list.sort()
     second_regex_time_list.reverse()
     #  Get seconds difference
@@ -28,9 +20,7 @@ def request_frequency(dT):
     seconds_difference_list.append(0.0)
     #  Get total duration of requests
     second_regex_time_list.reverse()
-    print(second_regex_time_list)
     seconds_difference_list.reverse()
-    print(seconds_difference_list)
     total_sum = 0
     for i in seconds_difference_list:
         total_sum = total_sum + i
