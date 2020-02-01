@@ -29,7 +29,7 @@ def count_max_and_min_link(N):
         if len(min_len_dict) == N and len(regex_link_list[x]) < list(min_len_dict.values())[0] and len(regex_link_list[x]) >= 1:
             del min_len_dict[list(min_len_dict.keys())[list(min_len_dict.values()).index(list(min_len_dict.values())[0])]]
             min_len_dict[regex_link_list[x]] = len(regex_link_list[x])
-    #  Reverse sort of user agents by their count
+    #  Reverse sort of links by their count
     max_len_dict = dict(sorted(max_len_dict.items(), key=operator.itemgetter(1), reverse=True))
     min_len_dict = dict(sorted(min_len_dict.items(), key=operator.itemgetter(1)))
     # Print dictionary line by line
