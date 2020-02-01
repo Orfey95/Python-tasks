@@ -8,7 +8,7 @@ def count_max_and_min_link(N):
     line = log.readlines()
     #  Get /link from log
     for x in range(len(line)):
-        regex_link_list.append(str((re.findall(r"(?:GET|POST) (.+? )HTTP/1.1", line[x])))[2:-3])
+        regex_link_list.append(str((re.findall(r"(?:GET|POST) (.+?) HTTP/1.1", line[x])))[2:-2])
     max_len_dict = {}
     min_len_dict = {}
     for x in range(len(regex_link_list)):
