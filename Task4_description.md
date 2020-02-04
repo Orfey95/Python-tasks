@@ -34,13 +34,13 @@ Number of requests for a remainder period of time: 25219
 Найти N самых частых User-Agent.<br>
 N = 7.
 ```
-User Agent:  AppleWebKit/537.36        Count:     34736
-User Agent:  Chrome/45.0.2454.101      Count:     23748
-User Agent:  Gecko/20100101            Count:     6487
-User Agent:  Presto/2.12.423           Count:     2546
-User Agent:  Chrome/45.0.2454.94       Count:     1655
-User Agent:  AppleWebKit/600.1.4       Count:     1489
-User Agent:  AppleWebKit/601.1.46      Count:     1445
+Count:   18469      User Agent: Amazon CloudFront
+Count:   9073       User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
+Count:   7624       User Agent: Jakarta Commons-HttpClient/3.1
+Count:   5614       User Agent: -
+Count:   5469       User Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
+Count:   3458       User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
+Count:   3333       User Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
 ```
 ### error_code_frequency(dT):
 Статистика статус кода S(50xошибок) в интервал времени dT(минут).<br>
