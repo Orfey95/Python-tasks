@@ -37,10 +37,10 @@ N = 7.
 Count:   18469      User Agent: Amazon CloudFront
 Count:   9073       User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
 Count:   7624       User Agent: Jakarta Commons-HttpClient/3.1
-Count:   5614       User Agent: -
 Count:   5469       User Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
 Count:   3458       User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko
 Count:   3333       User Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
+Count:   2379       User Agent: Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36
 ```
 ### error_code_frequency(dT):
 Статистика статус кода S(50xошибок) в интервал времени dT(минут).<br>
