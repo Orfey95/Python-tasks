@@ -54,45 +54,16 @@ The period you specify is: 5 minutes
 The period you specify is: 300 seconds
 Period: 09:01:24 - 09:06:24
 Number of requests for a specified period of time: 29425
-Error code:  200  Count:  23307
-Error code:  304  Count:  5366
-Error code:  302  Count:  55
-Error code:  206  Count:  144
-Error code:  301  Count:  431
-Error code:  404  Count:  104
-Error code:  412  Count:  1
-Error code:  400  Count:  1
 Error code:  500  Count:  15
 Period: 09:06:24 - 09:11:24
 Number of requests for a specified period of time: 32139
-Error code:  200  Count:  25651
-Error code:  304  Count:  5698
-Error code:  301  Count:  462
 Error code:  500  Count:  4
-Error code:  206  Count:  142
-Error code:  302  Count:  50
-Error code:  404  Count:  128
-Error code:  400  Count:  3
 Period: 09:11:24 - 09:16:24
 Number of requests for a specified period of time: 33168
-Error code:  200  Count:  26167
-Error code:  304  Count:  6160
-Error code:  302  Count:  55
-Error code:  301  Count:  513
-Error code:  404  Count:  125
-Error code:  206  Count:  144
 Error code:  500  Count:  1
-Error code:  400  Count:  1
-Error code:  416  Count:  1
 The remainder: 50.0 seconds
 Period: 09:16:24 - 09:17:14
 Number of requests for a remainder period of time: 5268
-Error code:  200  Count:  4301
-Error code:  304  Count:  817
-Error code:  404  Count:  26
-Error code:  301  Count:  89
-Error code:  302  Count:  9
-Error code:  206  Count:  25
 ```
 ### count_max_and_min_link(N):
 Найти N самых длинных запросов или самых коротких запросов.<br>
