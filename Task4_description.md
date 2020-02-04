@@ -1027,7 +1027,7 @@ Count:  367 Upstream:  ajp://10.1.4.68:8009
 Count:  404 Upstream:  ajp://10.1.4.69:8009
 ```
 ### max_request_frequency(N):
-К-во запросов по апстримам (воркерам) вdT (30 сек, 1 минуту, 5 мин).<br>
+Найти N периодов времени dT (1 мин, 2 мин, 3 мин и т.д.) за который было выполнено самое большое количество запросов.<br>
 N = 5.
 ```
 For period = 1 minutes. Number of requests for a specified period of time: 1783
