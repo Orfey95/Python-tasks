@@ -1026,18 +1026,13 @@ Count:  371 Upstream:  ajp://10.1.4.66:8009
 Count:  367 Upstream:  ajp://10.1.4.68:8009
 Count:  404 Upstream:  ajp://10.1.4.69:8009
 ```
-### max_request_frequency(N):
+### max_request_frequency(N, dT):
 Найти N периодов времени dT (1 мин, 2 мин, 3 мин и т.д.) за который было выполнено самое большое количество запросов.<br>
-N = 5.
+N = 6, dT = 3.
 ```
-For period = 1 minutes. Number of requests for a specified period of time: 1783
-During period: 09:15:51 - 09:16:56
-For period = 2 minutes. Number of requests for a specified period of time: 10245
-During period: 09:13:38 - 09:15:38
-For period = 3 minutes. Number of requests for a specified period of time: 4844
-During period: 09:13:28 - 09:16:28
-For period = 4 minutes. Number of requests for a specified period of time: 25219
-During period: 09:09:24 - 09:13:24
-For period = 5 minutes. Number of requests for a specified period of time: 5268
-During period: 09:11:24 - 09:16:24
+During period:  09:13:24 - 09:16:24  Count:     19951
+During period:  09:07:24 - 09:10:24  Count:     19773
+During period:  09:10:24 - 09:13:24  Count:     19305
+During period:  09:04:24 - 09:07:24  Count:     18247
+During period:  09:01:24 - 09:04:24  Count:     17456
 ```
