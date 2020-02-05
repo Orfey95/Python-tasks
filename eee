@@ -1,0 +1,37 @@
+import re
+import operator
+from collections import Counter
+
+
+def count_max_and_min_link(N):
+    log = open('access_log')
+    regex_link_list = []
+    line = log.readlines()
+    #  Get /link from log
+    for x in range(len(line)):
+        if str(re.findall(r"(?:GET|POST) (.+?) HTTP/1.1", line[x]))[2:-2] != '-':
+            regex_link_list.append(str(re.findall(r"(?:GET|POST) (.+?) HTTP/1.1", line[x]))[2:-2])
+    #  Reverse sort of links by their count
+    l1 = []
+    print(l1)
+    for x in range(3):
+        l1.append(regex_link_list[x])
+    l2 = sorted(l1, key=len)
+    print(l2)
+    # Print dictionary line by line
+    # print("The list of links with the maximum length:")
+    # for key, value in temp_dict.items():
+    #     print('Count: ', value, 'IP address: ', key)
+    # print("The list of links with the minimum length:")
+    # for key, value in temp_dict2.items():
+    #     print('Count: ', value, 'IP address: ', key)
+    # # Print dictionary line by line
+    # print("The list of links with the maximum length:")
+    # for key, value in max_len_dict.items():
+    #     print("%-12s %-25s %-10s %s" % ('Length:', value, 'URL:', key))
+    # print("The list of links with the minimum length:")
+    # for key, value in min_len_dict.items():
+    #     print("%-12s %-25s %-10s %s" % ('Length:', value, 'URL:', key))
+
+
+print(count_max_and_min_link(7))
