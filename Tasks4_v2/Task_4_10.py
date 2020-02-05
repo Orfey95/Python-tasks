@@ -2,12 +2,8 @@ import re
 from datetime import datetime
 
 
-def max_request_frequency(N):
+def max_request_frequency(N, dT):
     log = open('access_log')
-    #  Get list of periods
-    period_count = []
-    for x in range(1, N+1, 1):
-        period_count.append(x)
     regex_time_list = []
     seconds_difference_list = []
     line = log.readlines()
@@ -26,31 +22,35 @@ def max_request_frequency(N):
     #  Get total duration of requests
     regex_time_list.reverse()
     seconds_difference_list.reverse()
-    for number_of_period in range(len(period_count)):
-        dT = period_count[number_of_period] * 60
-        #  Variables for max requests
-        max_first_request = 0
-        max_last_request = 0
-        max_count_request = 0
-        #  Get periods
-        sum = 0
-        current_count = 0
-        prev_count = 1
-        for i in range(len(seconds_difference_list)):
-            sum = (sum + seconds_difference_list[i])
-            current_count = current_count + 1
-            #  Get number of requests for a specified period of time
-            if sum >= dT:
-                #  Check max_count_request
-                if current_count > max_count_request:
-                    max_count_request = current_count
-                    max_first_request = regex_time_list[prev_count - 1]
-                    max_last_request = regex_time_list[prev_count - 1 + current_count - 1]
-                    prev_count += current_count
-                    sum = 0
-                    current_count = 0
-        print("For period =", period_count[number_of_period], "minutes. Number of requests for a specified period of time:", current_count)
-        print("During period:", max_first_request, "-", max_last_request)
+    dT = dT * 60
+    #  Get periods
+    sum = 0
+    current_count = 0
+    prev_count = 1
+    default_data = {}
+    for i in range(len(seconds_difference_list)):
+        sum = (sum + seconds_difference_list[i])
+        current_count = current_count + 1
+        #  Get number of requests for a specified period of time
+        if sum >= dT:
+            t_str = str(regex_time_list[prev_count - 1]) + ' - ' + str(
+                regex_time_list[prev_count - 1 + current_count - 1])
+            default_data.update({t_str: int(current_count)})
+            prev_count += current_count
+            sum = 0
+            current_count = 0
+    default_data = dict(sorted(default_data.items(), key=lambda x: x[1], reverse=True))
+    # Get first K items in dictionary
+    out = dict(list(default_data.items())[0: N])
+    if N <= len(default_data):
+        # Print dictionary line by line
+        for key, value in out.items():
+            print("%-15s %-25s %-10s %s" % ('Count: ', value, 'URL: ', key))
+    else:
+        N = len(default_data)
+        # Print dictionary line by line
+        for key, value in out.items():
+            print("%-15s %-25s %-10s %s" % ('Time period:', key, 'Count:', value))
 
 
-print(max_request_frequency(5))
+print(max_request_frequency(6, 3))
