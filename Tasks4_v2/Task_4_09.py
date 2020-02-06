@@ -3,10 +3,10 @@ from datetime import datetime
 from collections import Counter
 
 
-def upstream_frequency():
+def upstream_frequency(dT):
     log = open('access_log')
     #  Get list of periods
-    period_count = [0.5, 1, 5]
+    period_count = [dT]
     # Lists for work with time
     regex_time_list = []
     seconds_difference_list = []
@@ -17,7 +17,8 @@ def upstream_frequency():
         regex_time_list.append(str((re.findall(r'\[.+?\:(\d{2}\:\d{2}\:\d{2}).+?\]', line[x])))[2:-2])
         #  Get upstream from log
         regex_domain_list.append(str((re.findall(r'"(\w+://\d+\.\d+\.\d+\.\d+:\d+)"', line[x])))[2:-2])
-    regex_time_list.sort()
+    regex_time_list, regex_domain_list = (list(t) for t in zip(*sorted(zip(regex_time_list, regex_domain_list))))
+    regex_domain_list.reverse()
     regex_time_list.reverse()
     #  Get seconds difference
     for x in range(len(regex_time_list) - 1):
@@ -78,6 +79,3 @@ def upstream_frequency():
                 for key, value in count_upstream_dict.items():
                     if key != '':
                         print('Count: ', value, 'Upstream: ', key)
-
-
-print(upstream_frequency())
