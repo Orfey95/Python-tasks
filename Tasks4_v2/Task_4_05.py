@@ -3,7 +3,7 @@ from collections import Counter
 
 
 def count_max_and_min_link(N):
-    log = open('C:\\Users\\Aleksandr\\Desktop\\EPAM\\Python\\access_log\\access_log')
+    log = open('access_log')
     regex_link_list = []
     line = log.readlines()
     #  Get /link from log
