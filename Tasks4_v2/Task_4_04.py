@@ -17,7 +17,8 @@ def error_code_frequency(dT):
         first_regex_error_code_list.append(str((re.findall(r'" \d{3}', line[x])))[4:-2])
         #  Get time from log
         regex_time_list.append(str((re.findall(r'\[.+?\:(\d{2}\:\d{2}\:\d{2}).+?\]', line[x])))[2:-2])
-    regex_time_list.sort()
+    regex_time_list, first_regex_error_code_list = (list(t) for t in zip(*sorted(zip(regex_time_list, first_regex_error_code_list))))
+    first_regex_error_code_list.reverse()
     regex_time_list.reverse()
     #  Get seconds difference
     for x in range(len(regex_time_list) - 1):
@@ -80,5 +81,4 @@ def error_code_frequency(dT):
             for key, value in count_error_code_dict.items():
                 print('Error code: ', key, ' Count: ', value)
 
-
-print(error_code_frequency(5))
+print(error_code_frequency(3))
