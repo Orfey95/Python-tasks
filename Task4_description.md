@@ -44,23 +44,27 @@ Count:   2379       User Agent: Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 
 ```
 ### error_code_frequency(dT):
 Статистика статус кода S(50xошибок) в интервал времени dT(минут).<br>
-dT = 5.
+dT = 3.
 ```
 Total duration of requests: 950.0 seconds
 Total duration of requests: 15.833333333333334 minutes
 Time of first request: 09:01:24
 Time of last request: 09:17:14
-The period you specify is: 5 minutes
-The period you specify is: 300 seconds
-Period: 09:01:24 - 09:06:24
-Number of requests for a specified period of time: 29425
-Error code:  500  Count:  15
-Period: 09:06:24 - 09:11:24
-Number of requests for a specified period of time: 32139
-Error code:  500  Count:  4
-Period: 09:11:24 - 09:16:24
-Number of requests for a specified period of time: 33168
+The period you specify is: 3 minutes
+The period you specify is: 180 seconds
+Period: 09:01:24 - 09:04:24
+Number of requests for a specified period of time: 17456
+Period: 09:04:24 - 09:07:24
+Number of requests for a specified period of time: 18247
 Error code:  500  Count:  1
+Period: 09:07:24 - 09:10:24
+Number of requests for a specified period of time: 19773
+Period: 09:10:24 - 09:13:24
+Number of requests for a specified period of time: 19305
+Error code:  500  Count:  9
+Period: 09:13:24 - 09:16:24
+Number of requests for a specified period of time: 19951
+Error code:  500  Count:  10
 The remainder: 50.0 seconds
 Period: 09:16:24 - 09:17:14
 Number of requests for a remainder period of time: 5268
