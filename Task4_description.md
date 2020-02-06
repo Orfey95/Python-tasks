@@ -181,7 +181,7 @@ Count:  1 Domain:  searches.vi-view.com
 Count:  1 Domain:  www.google.co.jp
 Count:  1 Domain:  goo.gl
 ```
-### upstream_frequency():
+### upstream_frequency(dT):
 К-во запросов по апстримам (воркерам) в dT (30 сек, 1 минуту, 5 мин).<br>
 dT = 3.
 ```
