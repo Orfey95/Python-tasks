@@ -45,12 +45,10 @@ def max_request_frequency(N, dT):
     if N <= len(default_data):
         # Print dictionary line by line
         for key, value in out.items():
-            print("%-15s %-25s %-10s %s" % ('Count: ', value, 'URL: ', key))
+            print("%-15s %-25s %-10s %s" % ('During period:', key, 'Count:', value))
     else:
         N = len(default_data)
         # Print dictionary line by line
         for key, value in out.items():
-            print("%-15s %-25s %-10s %s" % ('Time period:', key, 'Count:', value))
+            print("%-15s %-20s %-10s %s" % ('During period:', key, 'Count:', value))
 
-
-print(max_request_frequency(6, 3))
