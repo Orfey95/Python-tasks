@@ -5,10 +5,10 @@ N = 7.
 Count:  4464 IP address:  54.246.139.111
 Count:  4219 IP address:  54.77.132.130
 Count:  3170 IP address:  196.11.134.77
-Count:  2752 IP address:  54.239.166.115
-Count:  2572 IP address:  54.239.166.81
-Count:  2319 IP address:  54.240.147.77
-Count:  2216 IP address:  54.240.147.15
+Count:  1850 IP address:  41.21.128.106
+Count:  1049 IP address:  196.15.209.146
+Count:  626 IP address:  196.38.95.108
+Count:  534 IP address:  147.110.251.87
 ```
 ### request_frequency(dT):
 Найти частоту запросов в интервал времени dT(минут) и ход решения.<br>
