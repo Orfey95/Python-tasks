@@ -57,8 +57,7 @@ def write_csv(out_file, csv_head, csv_body, file_name, f_head):
             for y in range(__COL_NUMBERS):
                 dict_of_csv[csv_head[0][y]] = csv_body[x][y]
             list_of_dict_of_csv.append(dict_of_csv)
-        print(len(csv_body))
-        print(*list_of_dict_of_csv, sep="\n")
+            dict_of_csv = {}
         with open(out_file, 'w') as fp:
             json.dump(list_of_dict_of_csv, fp)
 
