@@ -10,14 +10,18 @@ __SUCCESSFUL = 0
 def read_CSV(file_name, f_head):
     csv_head = list()
     csv_body = list()
+    col_number = 12  # number of columns of csv file
     start_element_of_list_app = list()
     end_element_of_list_app = list()
     with open(file_name, "r") as record:
         if f_head == 1:
             csv_head.append(record.readline().replace("\n", "").split(","))
         for line in record:
-            if len(line.split(',')) < 12:
-                line = str(line).replace("\n", "") + next(record).replace("\n", "")
+            while True:
+                if len(line.split(',')) < col_number:
+                    line = str(line).replace("\n", "") + next(record).replace("\n", "")
+                else:
+                    break
             csv_body.append(line.replace("\n", "").split(","))
     # Convert list of apps to list element
     for x in csv_body:
