@@ -7,6 +7,17 @@ __ERROR_ARGUMENT = 2
 __SUCCESSFUL = 0
 __COL_NUMBERS = 12  # number of columns of csv file
 
+
+def get_delimiter(file_name, f_head):
+    file = open(file_name)
+    line = file.readlines()
+    if f_head:
+        delimiter = re.findall(r'[0-9a-f]{2}(?::[0-9a-f]{2}){5}(.1?)', line[1])
+    else:
+        delimiter = re.findall(r'[0-9a-f]{2}(?::[0-9a-f]{2}){5}(.1?)', line[0])
+    return delimiter[0]
+
+
 def read_CSV(file_name, f_head):
     csv_head = list()
     csv_body = list()
@@ -14,21 +25,21 @@ def read_CSV(file_name, f_head):
     end_element_of_list_app = list()
     with open(file_name, "r") as record:
         if f_head:
-            csv_head.append(record.readline().replace("\n", "").split(","))
+            csv_head.append(record.readline().replace("\n", "").split(get_delimiter(file_name, f_head)))
         for line in record:
             while True:
-                if len(line.split(',')) < __COL_NUMBERS:
+                if len(line.split(get_delimiter(file_name, f_head))) < __COL_NUMBERS:
                     line = str(line).replace("\n", "") + next(record).replace("\n", "")
                 else:
                     break
-            csv_body.append(line.replace("\n", "").split(","))
+            csv_body.append(line.replace("\n", "").split(get_delimiter(file_name, f_head)))
     # Convert list of apps to list element
     for x in csv_body:
         start_element_of_list_app.append([i for i, word in enumerate(x) if word.startswith('"')])
         end_element_of_list_app.append([i for i, word in enumerate(x) if word.endswith('"')])
     for x in range(len(csv_body)):
         csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1] = [
-            ','.join(csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1])]
+            get_delimiter(file_name, f_head).join(csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1])]
     return csv_head, csv_body
 
 
@@ -48,7 +59,6 @@ def filter_csv(csv_body, column_regex, filter_regex):
         for csv_body_element in csv_body[:]:
             if not re.match(regex_list[x], csv_body_element[int(column_regex[x])]):
                 csv_body.remove(csv_body_element)
-
 
 
 def range_rows(csv_body, range_rows):
@@ -147,7 +157,7 @@ def main(argv):
         range_columns(csv_head, csv_body, csv_opt["range_columns"], csv_opt["head"])
     if csv_opt["check_filter"]:
         filter_csv(csv_body, csv_opt["column_regex"], csv_opt["filter_regex"])
-    if csv_opt["check_read"] or csv_opt["check_filter"]:
+    if csv_opt["check_read"]:
         print(*csv_head, sep="\n")
         print(*csv_body, sep="\n")
     if csv_opt["check_write"]:
