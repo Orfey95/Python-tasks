@@ -1,4 +1,5 @@
 import getopt
+import json
 import sys
 import re
 
@@ -43,12 +44,23 @@ def read_CSV(file_name, f_head):
     return csv_head, csv_body
 
 
-def write_csv(out_file, csv_head, csv_body):
-    with open(out_file, "w") as out:
-        for rec in csv_head:
-            out.writelines(",".join(rec))
-        for rec in csv_body:
-            out.writelines(",".join(rec))
+def write_csv(out_file, csv_head, csv_body, file_name, f_head):
+    dict_of_csv = dict()
+    list_of_dict_of_csv = list()
+    # with open(out_file, "w") as out:
+    #     for rec in csv_head:
+    #         out.writelines(get_delimiter(file_name, f_head).join(rec)+'\n')
+    #     for rec in csv_body:
+    #         out.writelines(get_delimiter(file_name, f_head).join(rec)+'\n')
+    if str(out_file).split(".")[1] == 'json' and f_head:
+        for x in range(len(csv_body)):
+            for y in range(__COL_NUMBERS):
+                dict_of_csv[csv_head[0][y]] = csv_body[x][y]
+            list_of_dict_of_csv.append(dict_of_csv)
+        print(len(csv_body))
+        print(*list_of_dict_of_csv, sep="\n")
+        with open(out_file, 'w') as fp:
+            json.dump(list_of_dict_of_csv, fp)
 
 
 def filter_csv(csv_body, column_regex, filter_regex):
@@ -161,7 +173,7 @@ def main(argv):
         print(*csv_head, sep="\n")
         print(*csv_body, sep="\n")
     if csv_opt["check_write"]:
-        write_csv(csv_opt["output_file"], csv_head, csv_body)
+        write_csv(csv_opt["output_file"], csv_head, csv_body, csv_opt["file"], csv_opt["head"])
 
 
 if __name__ == "__main__":
