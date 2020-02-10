@@ -16,7 +16,10 @@ def read_CSV(file_name, f_head):
         if f_head == 1:
             csv_head.append(record.readline().replace("\n", "").split(","))
         for line in record:
+            if len(line.split(',')) < 12:
+                line = str(line).replace("\n", "") + next(record).replace("\n", "")
             csv_body.append(line.replace("\n", "").split(","))
+    # Convert list of apps to list element
     for x in csv_body:
         start_element_of_list_app.append([i for i, word in enumerate(x) if word.startswith('"')])
         end_element_of_list_app.append([i for i, word in enumerate(x) if word.endswith('"')])
@@ -69,7 +72,7 @@ def main(argv):
         print("An error occurred while specifying program parameters. "
               "To specify the correctness, specify the -h or --help option")
         sys.exit(__ERROR_ARGUMENT)
-    print(opts)
+    # print(opts)
     csv_opt = dict()
     csv_opt["head"] = 1
     csv_opt["column_regex"] = list()
