@@ -85,10 +85,15 @@ def range_columns(csv_head, csv_body, range_columns, f_head):
         end_number = int(str(range_columns_element).split("-")[1])
         for x in range(start_number, end_number+1):
             matching_columns.append(x)
-    for csv_body_element in csv_body[:]:
-        del csv_body_element[matching_columns[0]:matching_columns[-1]+1]
     if f_head:
-        del csv_head[0][matching_columns[0]:matching_columns[-1]]
+        for csv_head_element in csv_head[:]:
+            for index, csv_head_element_element in enumerate(csv_head_element[:]):
+                if index not in matching_columns:
+                    csv_head_element.remove(csv_head_element_element)
+    for csv_body_element in csv_body[:]:
+        for index, csv_body_element_element in enumerate(csv_body_element[:]):
+            if index not in matching_columns:
+                csv_body_element.remove(csv_body_element_element)
 
 
 def manual():
