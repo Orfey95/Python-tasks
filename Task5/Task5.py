@@ -47,11 +47,7 @@ def read_CSV(file_name, f_head):
 def write_csv(out_file, csv_head, csv_body, file_name, f_head):
     dict_of_csv = dict()
     list_of_dict_of_csv = list()
-    # with open(out_file, "w") as out:
-    #     for rec in csv_head:
-    #         out.writelines(get_delimiter(file_name, f_head).join(rec)+'\n')
-    #     for rec in csv_body:
-    #         out.writelines(get_delimiter(file_name, f_head).join(rec)+'\n')
+
     if str(out_file).split(".")[1] == 'json' and f_head:
         for x in range(len(csv_body)):
             for y in range(__COL_NUMBERS):
@@ -60,6 +56,12 @@ def write_csv(out_file, csv_head, csv_body, file_name, f_head):
             dict_of_csv = {}
         with open(out_file, 'w') as fp:
             json.dump(list_of_dict_of_csv, fp)
+    else:
+        with open(out_file, "w") as out:
+            for rec in csv_head:
+                out.writelines(get_delimiter(file_name, f_head).join(rec) + '\n')
+            for rec in csv_body:
+                out.writelines(get_delimiter(file_name, f_head).join(rec) + '\n')
 
 
 def filter_csv(csv_body, column_regex, filter_regex):
