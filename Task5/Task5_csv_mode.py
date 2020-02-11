@@ -25,8 +25,9 @@ def read_CSV(file_name, f_head, delimiter):
 def write_csv(out_file, csv_head, csv_body, f_head, delimiter):
     dict_of_csv = dict()
     list_of_dict_of_csv = list()
-    if str(out_file).split(".")[1] == 'json' and f_head == False:
-        csv_head = [['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6', 'Column7', 'Column8', 'Column9', 'Column10', 'Column11', 'Column12']]
+    if str(out_file).split(".")[1] == 'json' and not f_head:
+        csv_head = [['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6', 'Column7', 'Column8',
+                     'Column9', 'Column10', 'Column11', 'Column12']]
     if str(out_file).split(".")[1] == 'json':
         for x in range(len(csv_body)):
             for y in range(__COL_NUMBERS):
@@ -82,6 +83,7 @@ def manual():
     print('DESCRIPTION')
     print('\tA program for filtering csv files.\n')
     print('\t-f, --file <input_file> \n\t\t specifying the path to the csv file')
+    print('\t-d, --delimiter <delimiter> \n\t\t specifying the column delimiter, example: -d ","')
     print('\t-h, --help \n\t\t get help about the program')
     print('\t-H, --head \n\t\t specify this parameter if the csv file contains a header')
     print('\t-c, --col <col_number> \n\t\t specify the column number to which you want to apply a filter')
@@ -89,7 +91,8 @@ def manual():
     print('\t-o, --out <output_file> \n\t\t specify the path where the csv file will be written')
     print('\t-r, --row_range <range> \n\t\t specify the range of rows you need, example: -r 1-3')
     print('\t-C, --column_range <range> \n\t\t specify the range of columns you need, example: -C 1-3')
-    print('\n\tThe -c and -F options work only together, and cannot be alone.\n')
+    print('\n\tThe -c and -F options work only together, and cannot be alone.')
+    print('\tThe -f and -d options work only together, and cannot be alone.\n')
     print('  Exit status:')
     print('\t0\t-\tif OK,')
     print('\t1\t-\tif critical error,')
@@ -100,7 +103,8 @@ def manual():
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "col=", "filter=", "row_range=", "column_range=", "delimiter="])
+        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "col=",
+                                                              "filter=", "row_range=", "column_range=", "delimiter="])
     except getopt.GetoptError:
         print("An error occurred while specifying program parameters. "
               "To specify the correctness, specify the -h or --help option")
