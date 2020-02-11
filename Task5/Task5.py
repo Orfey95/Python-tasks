@@ -9,46 +9,37 @@ __SUCCESSFUL = 0
 __COL_NUMBERS = 12  # number of columns of csv file
 
 
-def get_delimiter(file_name, f_head):
-    file = open(file_name)
-    line = file.readlines()
-    if f_head:
-        delimiter = re.findall(r'[0-9a-f]{2}(?::[0-9a-f]{2}){5}(.1?)', line[1])
-    else:
-        delimiter = re.findall(r'[0-9a-f]{2}(?::[0-9a-f]{2}){5}(.1?)', line[0])
-    return delimiter[0]
-
-
-def read_CSV(file_name, f_head):
+def read_CSV(file_name, f_head, delimiter):
     csv_head = list()
     csv_body = list()
     start_element_of_list_app = list()
     end_element_of_list_app = list()
     with open(file_name, "r") as record:
         if f_head:
-            csv_head.append(record.readline().replace("\n", "").split(get_delimiter(file_name, f_head)))
+            csv_head.append(record.readline().replace("\n", "").split(delimiter))
         for line in record:
             while True:
-                if len(line.split(get_delimiter(file_name, f_head))) < __COL_NUMBERS:
+                if len(line.split(delimiter)) < __COL_NUMBERS:
                     line = str(line).replace("\n", "") + next(record).replace("\n", "")
                 else:
                     break
-            csv_body.append(line.replace("\n", "").split(get_delimiter(file_name, f_head)))
+            csv_body.append(line.replace("\n", "").split(delimiter))
     # Convert list of apps to list element
     for x in csv_body:
         start_element_of_list_app.append([i for i, word in enumerate(x) if word.startswith('"')])
         end_element_of_list_app.append([i for i, word in enumerate(x) if word.endswith('"')])
     for x in range(len(csv_body)):
         csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1] = [
-            get_delimiter(file_name, f_head).join(csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1])]
+            delimiter.join(csv_body[x][int(start_element_of_list_app[x][0]): int(end_element_of_list_app[x][0]) + 1])]
     return csv_head, csv_body
 
 
-def write_csv(out_file, csv_head, csv_body, file_name, f_head):
+def write_csv(out_file, csv_head, csv_body, file_name, f_head, delimiter):
     dict_of_csv = dict()
     list_of_dict_of_csv = list()
-
-    if str(out_file).split(".")[1] == 'json' and f_head:
+    if str(out_file).split(".")[1] == 'json' and f_head == False:
+        csv_head = [['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6', 'Column7', 'Column8', 'Column9', 'Column10', 'Column11', 'Column12']]
+    if str(out_file).split(".")[1] == 'json':
         for x in range(len(csv_body)):
             for y in range(__COL_NUMBERS):
                 dict_of_csv[csv_head[0][y]] = csv_body[x][y]
@@ -59,9 +50,9 @@ def write_csv(out_file, csv_head, csv_body, file_name, f_head):
     else:
         with open(out_file, "w") as out:
             for rec in csv_head:
-                out.writelines(get_delimiter(file_name, f_head).join(rec) + '\n')
+                out.writelines(delimiter.join(rec) + '\n')
             for rec in csv_body:
-                out.writelines(get_delimiter(file_name, f_head).join(rec) + '\n')
+                out.writelines(delimiter.join(rec) + '\n')
 
 
 def filter_csv(csv_body, column_regex, filter_regex):
@@ -121,7 +112,7 @@ def manual():
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:", ["help", "file=", "head", "out=", "col=", "filter=", "row_range=", "column_range="])
+        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "col=", "filter=", "row_range=", "column_range=", "delimiter="])
     except getopt.GetoptError:
         print("An error occurred while specifying program parameters. "
               "To specify the correctness, specify the -h or --help option")
@@ -133,6 +124,7 @@ def main(argv):
     csv_opt["filter_regex"] = list()
     csv_opt["range_rows"] = list()
     csv_opt["range_columns"] = list()
+    csv_opt["delimiter"] = str()
     csv_opt["check_filter"] = False
     csv_opt["check_read"] = False
     csv_opt["check_write"] = False
@@ -161,9 +153,11 @@ def main(argv):
         elif opt in ("-C", "--column_range"):
             csv_opt["range_columns"].append(arg)
             csv_opt["check_range_column"] = True
+        elif opt in ("-d", "--delimiter"):
+            csv_opt["delimiter"] = arg
 
     if csv_opt["check_read"]:
-        csv_head, csv_body = read_CSV(csv_opt["file"], csv_opt["head"])
+        csv_head, csv_body = read_CSV(csv_opt["file"], csv_opt["head"], csv_opt["delimiter"])
     if csv_opt["check_range_row"]:
         range_rows(csv_body, csv_opt["range_rows"])
     if csv_opt["check_range_column"]:
@@ -174,7 +168,7 @@ def main(argv):
         print(*csv_head, sep="\n")
         print(*csv_body, sep="\n")
     if csv_opt["check_write"]:
-        write_csv(csv_opt["output_file"], csv_head, csv_body, csv_opt["file"], csv_opt["head"])
+        write_csv(csv_opt["output_file"], csv_head, csv_body, csv_opt["head"], csv_opt["delimiter"])
 
 
 if __name__ == "__main__":
