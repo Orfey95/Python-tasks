@@ -1,4 +1,11 @@
-### Help:
+####CSV/TSV/DSV Reader
+### List Function:
+1) Help - you can get help about the program;
+2) Filter by row - you can specify the ranges of rows with which you want to work;
+3) Filter by column - you can specify the ranges of columns with which you want to work;
+4) Filter by pattern - you can specify the column number and the pattern by which the rows will be filtered;
+5) Work with the header - you can choose whether the header is in the file or not.
+## Help:
 ```
 C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users/Oleksandr_Frolov/PycharmProjects/Task5/Task5_csv_mode.py -h
 DESCRIPTION
@@ -12,7 +19,7 @@ DESCRIPTION
 		 get help about the program
 	-H, --head 
 		 specify this parameter if the csv file contains a header
-	-c, --col <col_number> 
+	-c, --column <col_number> 
 		 specify the column number to which you want to apply a filter
 	-F, --filter <filter_regex> 
 		 specify a filtering rule, example: -F *KH*
