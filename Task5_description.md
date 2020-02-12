@@ -4,7 +4,7 @@
 3) Filter by column - you can specify the ranges of columns with which you want to work;
 4) Filter by pattern - you can specify the column number and the pattern by which the rows will be filtered;
 5) Work with the header - you can choose whether the header is in the file or not.
-## Help:
+## Function ONE - Help:
 ```
 C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users/Oleksandr_Frolov/PycharmProjects/Task5/Task5_csv_mode.py -h
 DESCRIPTION
