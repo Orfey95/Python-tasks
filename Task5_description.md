@@ -92,7 +92,6 @@ C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users
 ```
 C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users/Oleksandr_Frolov/PycharmProjects/Task5/Task5.py -f log.csv -d , -o out.json
 ```
-```yaml
 ```json
 {
     "one": 2,
@@ -106,5 +105,4 @@ C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users
         "three"
     ]
 }
-```
 ```
