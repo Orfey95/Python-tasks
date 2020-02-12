@@ -41,7 +41,6 @@ DESCRIPTION
 
 AUTHOR
 	Written by Oleksandr Frolov.
-
 ```
 ## Function TWO - Read file:
 ```
