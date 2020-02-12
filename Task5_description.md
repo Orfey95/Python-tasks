@@ -93,5 +93,18 @@ C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users
 C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users/Oleksandr_Frolov/PycharmProjects/Task5/Task5.py -f log.csv -d , -o out.json
 ```
 ```yaml
-{"MAC": "00:0a:95:9d:68:12", "hostname": "EPUAKHAW011D", "IPv4": "255.255.254.0", "IPv6": "0:0:0:0:0:ffff:c0a8:32", "netmask": "255.255.255.0", "login": "Oleksandr_Frolov", "full_user_name": "Oleksandr Frolov", "email": "Oleksandr_Frolov@epam.com", "ssh": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMFY85GBlB1boQSJ5Sp+a36QUlEtqFIVryz+328ELMhQcdPbg9G7aUH+v1t9EH1PLAmyYCauzOp7I5HFjceFMuisbbxotFuePnbKsYH1/rBMe8yQyFq0BOstMCGdExXQpDGryDVIKTqy3/nRDuVKLPy3x7tTpiMXdVFeTqIOkU19ePihhTViUrLJnbeMmAVrLPqOHz9LLpSPGZ5nljOlv4W0CSNtBT9yOsRAaWAU9ipz+20yfYz6MjbFjneSHpYXgHlW/gxgNJReQYRbJgRobKTvt5oUTKkpmYvBtyDxagLcUb6SCXxfZGhaSAEWCbEN9ETEFaJycVtSaxUG3SKAOBrd0+YxhAwiHjfRKgLPY2pzUK2F31HXY5yO3/9fSeTOmOkg2lHVEeEV0/XFk0yJdD8cnz7QEGQCFFJuZrKreJ76ubzWZggA64qoCsCq3Zm+bvMCIs2WZQukoTg3GqCFGIxwxeGR9T5LcGiV2tPffUtj1JIkohip2NfgIgAZ6UOOlXp66d9JubpoZzrKucdLQCnZlt7tss/RyHoMhal4Ojc6cnBtukoE434PD1Bh/P8doRcrsFYNPzbp5LoTZ9W4m8pY5CZI9Tzaduo5hx9sJ9745xWzl67VEqp8xsjGahUU1YiH0rJDcnpUwnEVNTjVOlXDkc4bNhcwXdIiT9udhG9w== Oleksandr_Frolov@EPUAKHAW013D", "description_host": "user-pc", "installed_app": "\"Skype, Viber\"", "UUID": "48c1e088-48c1-11ea-b77f-2e728ce88125"}
+```json
+{
+    "one": 2,
+    "three": {
+        "point_1": "point_2",
+        "point_3": 3.4
+    },
+    "list": [
+        "one",
+        "two",
+        "three"
+    ]
+}
+```
 ```
