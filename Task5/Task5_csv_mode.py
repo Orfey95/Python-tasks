@@ -73,10 +73,15 @@ def range_columns(csv_head, csv_body, range_columns, f_head):
         end_number = int(str(range_columns_element).split("-")[1])
         for x in range(start_number, end_number+1):
             matching_columns.append(x)
-    for csv_body_element in csv_body[:]:
-        del csv_body_element[matching_columns[0]:matching_columns[-1]+1]
     if f_head:
-        del csv_head[0][matching_columns[0]:matching_columns[-1]]
+        for csv_head_element in csv_head[:]:
+            for index, csv_head_element_element in enumerate(csv_head_element[:]):
+                if index not in matching_columns:
+                    csv_head_element.remove(csv_head_element_element)
+    for csv_body_element in csv_body[:]:
+        for index, csv_body_element_element in enumerate(csv_body_element[:]):
+            if index not in matching_columns:
+                csv_body_element.remove(csv_body_element_element)
 
 
 def manual():
@@ -86,7 +91,7 @@ def manual():
     print('\t-d, --delimiter <delimiter> \n\t\t specifying the column delimiter, example: -d ","')
     print('\t-h, --help \n\t\t get help about the program')
     print('\t-H, --head \n\t\t specify this parameter if the csv file contains a header')
-    print('\t-c, --col <col_number> \n\t\t specify the column number to which you want to apply a filter')
+    print('\t-c, --column <col_number> \n\t\t specify the column number to which you want to apply a filter')
     print('\t-F, --filter <filter_regex> \n\t\t specify a filtering rule, example: -F *KH*')
     print('\t-o, --out <output_file> \n\t\t specify the path where the csv file will be written')
     print('\t-r, --row_range <range> \n\t\t specify the range of rows you need, example: -r 1-3')
@@ -103,7 +108,7 @@ def manual():
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "col=",
+        opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "column=",
                                                               "filter=", "row_range=", "column_range=", "delimiter="])
     except getopt.GetoptError:
         print("An error occurred while specifying program parameters. "
@@ -122,6 +127,9 @@ def main(argv):
     csv_opt["check_write"] = False
     csv_opt["check_range_row"] = False
     csv_opt["check_range_column"] = False
+    csv_opt["check_delimiter"] = False
+    csv_opt["check_filter"] = False
+    csv_opt["check_col"] = False
     for opt, arg in opts:
         if opt in ('-h', "--help"):
             manual()
@@ -134,11 +142,12 @@ def main(argv):
         elif opt in ("-o", "--out"):
             csv_opt["output_file"] = arg
             csv_opt["check_write"] = True
-        elif opt in ("-c", "--col"):
+        elif opt in ("-c", "--column"):
             csv_opt["column_regex"].append(arg)
-            csv_opt["check_filter"] = True
+            csv_opt["check_col"] = True
         elif opt in ("-F", "--filter"):
             csv_opt["filter_regex"].append(arg)
+            csv_opt["check_filter"] = True
         elif opt in ("-r", "--row_range"):
             csv_opt["range_rows"].append(arg)
             csv_opt["check_range_row"] = True
@@ -147,7 +156,21 @@ def main(argv):
             csv_opt["check_range_column"] = True
         elif opt in ("-d", "--delimiter"):
             csv_opt["delimiter"] = arg
-
+            csv_opt["check_delimiter"] = True
+    #  Check pair parameters
+    if csv_opt["check_read"] and not csv_opt["check_delimiter"]:
+        print("The -f and -d options work only together, and cannot be alone.")
+        sys.exit(__ERROR_ARGUMENT)
+    if not csv_opt["check_read"] and csv_opt["check_delimiter"]:
+        print("The -f and -d options work only together, and cannot be alone.")
+        sys.exit(__ERROR_ARGUMENT)
+    if csv_opt["check_filter"] and not csv_opt["check_col"]:
+        print("The -c and -F options work only together, and cannot be alone.")
+        sys.exit(__ERROR_ARGUMENT)
+    if not csv_opt["check_filter"] and csv_opt["check_col"]:
+        print("The -c and -F options work only together, and cannot be alone.")
+        sys.exit(__ERROR_ARGUMENT)
+    ########
     if csv_opt["check_read"]:
         csv_head, csv_body = read_CSV(csv_opt["file"], csv_opt["head"], csv_opt["delimiter"])
     if csv_opt["check_range_row"]:
