@@ -90,6 +90,8 @@ C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users
 ```
 ## Function SEVEN - Export to json:
 ```
+C:\Users\Oleksandr_Frolov\PycharmProjects\Task5\venv\Scripts\python.exe C:/Users/Oleksandr_Frolov/PycharmProjects/Task5/Task5.py -f log.csv -d , -o out.json
+
 [ 
    { 
       "MAC":"00:0a:95:9d:68:12",
