@@ -36,13 +36,15 @@ def read_CSV(file_name, f_head, delimiter):
 
 def write_csv(out_file, csv_head, csv_body, f_head, delimiter):
     dict_of_csv = dict()
+    temp_list = []
     list_of_dict_of_csv = list()
     if str(out_file).split(".")[1] == 'json' and not f_head:
-        csv_head = [['Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6', 'Column7', 'Column8',
-                     'Column9', 'Column10', 'Column11', 'Column12']]
+        for x in range(len(csv_body[0])):
+            temp_list.append('Column' + str(x))
+        csv_head.append(temp_list)
     if str(out_file).split(".")[1] == 'json':
         for x in range(len(csv_body)):
-            for y in range(__COL_NUMBERS):
+            for y in range(len(csv_head[0])):
                 dict_of_csv[csv_head[0][y]] = csv_body[x][y]
             list_of_dict_of_csv.append(dict_of_csv)
             dict_of_csv = {}
