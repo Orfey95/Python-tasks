@@ -49,13 +49,11 @@ def task_1_6():
     outbound_interface = (ospf_route.split(" ")[6])
     print("%-20s %s" % ("Outbound Interface: ", outbound_interface))
 
-
+    
 def task_1_7():
     mac = 'AAAA:BBBB:CCCC'
-    mac = mac.replace('A', '1010')
-    mac = mac.replace('B', '1011')
-    mac = mac.replace('C', '1100')
     mac = mac.replace(':', '')
+    mac = bin(int(mac, 16))[2:].zfill(4)
     return mac
 
 
