@@ -1,5 +1,4 @@
 import logging
-name = 'sasha'
 logging.basicConfig(filename="sample.log", level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     datefmt='%d-%b-%y %H:%M:%S')
