@@ -1,16 +1,40 @@
+"""CSV reader with csv mode
+This script allows the user to work with csv, tsv and dsv files.
+List Function:
+Help - you can get help about the program;
+Read file - you can read file;
+Filter by row - you can specify the ranges of rows with which you want to work;
+Filter by column - you can specify the ranges of columns with which you want to work;
+Filter by pattern - you can specify the column number and the pattern by which the rows will be filtered;
+Work with the header - you can choose whether the header is in the file or not;
+Export to json - you can export to json file.
+"""
+
 import getopt
 import json
 import sys
 import re
 import csv
+import os.path
 
 
-__ERROR_ARGUMENT = 2
-__SUCCESSFUL = 0
+__ERROR_FILE = 3  # problem with filename
+__ERROR_ARGUMENT = 2  # problem with arguments
+__SUCCESSFUL = 0  # OK
 __COL_NUMBERS = 12  # number of columns of csv file
 
 
-def read_CSV(file_name, f_head, delimiter):
+def read_csv(file_name, f_head, delimiter):
+    """Function to read csv file
+        :param file_name: str
+            The name of csv, tsv and dsv files
+        :param f_head: bool
+            The pointer that indicates whether there is a header in the file
+        :param delimiter: str
+            The file delimiter
+        :return: list, list
+            Return header and body of file
+    """
     csv_head = list()
     csv_body = list()
     with open(file_name, 'r') as read_obj:
@@ -23,13 +47,26 @@ def read_CSV(file_name, f_head, delimiter):
 
 
 def write_csv(out_file, csv_head, csv_body, f_head, delimiter):
+    """Function to write to file
+        :param out_file: str
+            The name of file to write
+        :param csv_head: list
+            The header of file
+        :param csv_body: list
+            The body of file
+        :param f_head: bool
+            The pointer that indicates whether there is a header in the file
+        :param delimiter: str
+            The file delimiter
+        :return: 0
+    """
     dict_of_csv = dict()
     list_of_dict_of_csv = list()
     temp_list = []
     if str(out_file).split(".")[1] == 'json' and not f_head:
         for x in range(len(csv_body[0])):
             temp_list.append('Column' + str(x))
-        csv_head.append(temp_list)   
+        csv_head.append(temp_list)
     if str(out_file).split(".")[1] == 'json':
         for x in range(len(csv_body)):
             for y in range(len(csv_head[0])):
@@ -47,6 +84,15 @@ def write_csv(out_file, csv_head, csv_body, f_head, delimiter):
 
 
 def filter_csv(csv_body, column_regex, filter_regex):
+    """Function to filter csv file by regex
+        :param csv_body: list
+            The body of file
+        :param column_regex: list
+            The list of columns for filter
+        :param filter_regex: list
+            The list of regex for columns
+        :return: 0
+    """
     regex_list = list()
     for regex_element in filter_regex:
         regex_list.append(str(regex_element).replace("*", ".+?"))
@@ -57,6 +103,13 @@ def filter_csv(csv_body, column_regex, filter_regex):
 
 
 def range_rows(csv_body, range_rows):
+    """Function to filter csv by row range
+        :param csv_body: list
+            The body of file
+        :param range_rows: list
+            The list of rows for filter
+        :return: 0
+    """
     matching_rows = list()
     for range_rows_element in range_rows:
         start_number = int(str(range_rows_element).split("-")[0])
@@ -69,6 +122,17 @@ def range_rows(csv_body, range_rows):
 
 
 def range_columns(csv_head, csv_body, range_columns, f_head):
+    """Function to filter csv by column range
+        :param csv_head: list
+            The header of file
+        :param csv_body: list
+            The body of file
+        :param range_columns: list
+            The list of columns for filter
+        :param f_head: bool
+            The pointer that indicates whether there is a header in the file
+        :return: 0
+    """
     matching_columns = list()
     for range_columns_element in range_columns:
         start_number = int(str(range_columns_element).split("-")[0])
@@ -87,6 +151,9 @@ def range_columns(csv_head, csv_body, range_columns, f_head):
 
 
 def manual():
+    """Function of help
+        :return: 0
+    """
     print('DESCRIPTION')
     print('\tA program for filtering csv files.\n')
     print('\t-f, --file <input_file> \n\t\t specifying the path to the csv file')
@@ -109,6 +176,11 @@ def manual():
 
 
 def main(argv):
+    """Function for processing script parameters
+        :param argv: list
+            Arguments of script
+        :return: 0
+    """
     try:
         opts, args = getopt.getopt(argv, "hf:Ho:c:F:r:C:d:", ["help", "file=", "head", "out=", "column=",
                                                               "filter=", "row_range=", "column_range=", "delimiter="])
@@ -116,7 +188,6 @@ def main(argv):
         print("An error occurred while specifying program parameters. "
               "To specify the correctness, specify the -h or --help option")
         sys.exit(__ERROR_ARGUMENT)
-    # print(opts)
     csv_opt = dict()
     csv_opt["head"] = True
     csv_opt["column_regex"] = list()
@@ -159,6 +230,7 @@ def main(argv):
         elif opt in ("-d", "--delimiter"):
             csv_opt["delimiter"] = arg
             csv_opt["check_delimiter"] = True
+
     #  Check pair parameters
     if csv_opt["check_read"] and not csv_opt["check_delimiter"]:
         print("The -f and -d options work only together, and cannot be alone.")
@@ -174,7 +246,11 @@ def main(argv):
         sys.exit(__ERROR_ARGUMENT)
     ########
     if csv_opt["check_read"]:
-        csv_head, csv_body = read_CSV(csv_opt["file"], csv_opt["head"], csv_opt["delimiter"])
+        if os.path.isfile(csv_opt["file"]):
+            csv_head, csv_body = read_csv(csv_opt["file"], csv_opt["head"], csv_opt["delimiter"])
+        else:
+            print("The specified file does not exist.")
+            sys.exit(__ERROR_FILE)
     if csv_opt["check_range_row"]:
         range_rows(csv_body, csv_opt["range_rows"])
     if csv_opt["check_range_column"]:
